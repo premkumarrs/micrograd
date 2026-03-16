@@ -1,4 +1,3 @@
-
 # micrograd
 
 ![awww](puppy.jpg)
@@ -34,6 +33,28 @@ print(f'{g.data:.4f}') # prints 24.7041, the outcome of this forward pass
 g.backward()
 print(f'{a.grad:.4f}') # prints 138.8338, i.e. the numerical value of dg/da
 print(f'{b.grad:.4f}') # prints 645.5773, i.e. the numerical value of dg/db
+```
+
+### Activation functions
+
+The engine supports the following activation functions:
+
+```python
+x = Value(2.0)
+x.relu()        # max(0, x)
+x.sigmoid()     # 1 / (1 + e^-x)
+x.tanh()        # (e^x - e^-x) / (e^x + e^-x)
+x.leaky_relu()  # x if x > 0 else 0.01 * x
+x.exp()         # e^x
+x.log()         # ln(x)
+```
+
+Neurons in `nn.py` also support choosing an activation:
+
+```python
+from micrograd.nn import MLP
+
+model = MLP(2, [16, 16, 1], hidden_act='tanh')
 ```
 
 ### Training a neural net
